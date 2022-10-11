@@ -66,7 +66,8 @@ resource "aws_instance" "mozmut-project-iac" {
   ]
   root_block_device {
     delete_on_termination = true
-    volume_size = 10
+    # for Red Hat need to assign 10GB volume
+    volume_size = 8
     volume_type = "gp2"
   }
   tags = {
