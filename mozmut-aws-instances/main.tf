@@ -50,22 +50,14 @@ resource "random_integer" "test" {
 
 resource "aws_instance" "mozmut-project-iac" {
   count = 1
-  ami = lookup(var.awsprops, "ami")
+  #ami = lookup(var.awsprops, "ami")
+  #user_data = var.userdata.amazon_ami
+  ami = data.aws_ami.ubuntu-linux-2004.id
+  user_data = var.userdata.ubuntu_ami
   instance_type = lookup(var.awsprops, "itype")
   subnet_id = var.subnet
   associate_public_ip_address = lookup(var.awsprops, "publicip")
   key_name = var.keyname
-  user_data =<<EOF
-#! /bin/bash
-# Use this for your user data (script from top to bottom)
-# install httpd (Linux 2 version)
-yum update -y
-yum install -y httpd
-systemctl start httpd
-systemctl enable httpd
-echo "<h1>Deployed via Terraform, Hello World from $(hostname -f)</h1>" | sudo tee /var/www/html/index.html
-EOF
-
 
   vpc_security_group_ids = [
     aws_security_group.project-iac-sg.id
