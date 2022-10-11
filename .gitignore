@@ -2,7 +2,8 @@
 .idea
 
 # Terraform Credential varaible file
-credentials.tf
+mozmut-aws-instances/credentials.tfvars
+.terraform.lock.hcl
 
 # Local .terraform directories
 **/.terraform/*
