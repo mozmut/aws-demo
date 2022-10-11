@@ -40,5 +40,15 @@ systemctl start apache2
 systemctl enable apache2
 echo "<h1>Deployed via Terraform, Hello World from $(hostname -f)</h1>" | sudo tee /var/www/html/index.html
 EOF
+    redhat_ami =<<EOF
+#! /bin/bash
+# Use this for your user data (script from top to bottom)
+# install httpd (Linux 2 version)
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "<h1>Deployed via Terraform, Hello World from $(hostname -f)</h1>" | sudo tee /var/www/html/index.html
+EOF
   }
 }

@@ -54,6 +54,8 @@ resource "aws_instance" "mozmut-project-iac" {
   #user_data = var.userdata.amazon_ami
   ami = data.aws_ami.ubuntu-linux-2004.id
   user_data = var.userdata.ubuntu_ami
+  #ami = data.aws_ami.rhel_8_5.id
+  #user_data = var.userdata.redhat_ami
   instance_type = lookup(var.awsprops, "itype")
   subnet_id = var.subnet
   associate_public_ip_address = lookup(var.awsprops, "publicip")
@@ -64,7 +66,7 @@ resource "aws_instance" "mozmut-project-iac" {
   ]
   root_block_device {
     delete_on_termination = true
-    volume_size = 8
+    volume_size = 10
     volume_type = "gp2"
   }
   tags = {
