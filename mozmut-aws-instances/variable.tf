@@ -5,7 +5,7 @@ variable "awsprops" {
     ami = "ami-09e2d756e7d78558d"
     itype = "t2.micro"
     publicip = true
-    keyname = "EC2 Tutorial"
+    secgroupname = "my security group"
   }
 }
 
