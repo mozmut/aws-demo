@@ -1,0 +1,47 @@
+---
+- hosts: aws_instances
+  become: true
+  remote_user: ubuntu
+  become_user: root
+  tasks:
+
+    - name: Jenkins with shell
+      shell: "curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null"
+
+    - name: Jenkins with shell key
+      shell: "echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null"
+
+    - name: Install java
+      apt:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+          - fontconfig
+          - openjdk-11-jre
+
+    - name: apt update
+      apt:
+        name: '*'
+        state: latest
+        update_cache: yes
+
+    - name: Install jenkins
+      apt:
+        name: jenkins
+        state: latest
+
+    - name: daemon-reload to pick up config changes
+      systemd:
+        daemon_reload: yes
+
+    - name: Start jenkins
+      systemd:
+        name: jenkins
+        state: started
+
+    - name: Display Jenkins initial admin password
+      shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: displaylist
+
+    - debug: msg="{{displaylist.stdout_lines}}"
