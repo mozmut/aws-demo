@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_security_group" "project-iac-sg" {
   name = lookup(var.awsprops, "secgroupname")
   description = lookup(var.awsprops, "secgroupname")
-  vpc_id = lookup(var.credentialprops, "vpc")
+  vpc_id = var.vpc
 
   // To Allow SSH Transport
   ingress {
@@ -52,9 +52,9 @@ resource "aws_instance" "mozmut-project-iac" {
   count = 1
   ami = lookup(var.awsprops, "ami")
   instance_type = lookup(var.awsprops, "itype")
-  subnet_id = lookup(var.credentialprops, "subnet")
+  subnet_id = var.subnet
   associate_public_ip_address = lookup(var.awsprops, "publicip")
-  key_name = lookup(var.credentialprops, "keyname")
+  key_name = var.keyname
   user_data =<<EOF
 #! /bin/bash
 # Use this for your user data (script from top to bottom)

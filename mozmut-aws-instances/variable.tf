@@ -12,3 +12,7 @@ variable "awsprops" {
 variable "instance_names" {
   default = ["1", "2", "3", "4", "5"]
 }
+
+variable "vpc" {}
+variable "subnet" {}
+variable "keyname" {}
