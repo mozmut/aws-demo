@@ -1,18 +1,3 @@
-# Get latest Ubuntu Linux Trusty Tahr 14.04 AMI
-data "aws_ami" "ubuntu-linux-1404" {
-  most_recent = true
-  owners      = ["099720109477"] # Canonical
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
 # Get latest Ubuntu Linux Xenial Xerus 16.04 AMI
 data "aws_ami" "ubuntu-linux-1604" {
   most_recent = true
@@ -52,6 +37,28 @@ data "aws_ami" "ubuntu-linux-2004" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
 
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+# RHEL 8.5
+data "aws_ami" "rhel_8_5" {
+  most_recent = true
+  owners = ["309956199498"] // Red Hat's Account ID
+  filter {
+    name   = "name"
+    values = ["RHEL-8.5*"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
