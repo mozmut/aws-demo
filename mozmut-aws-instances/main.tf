@@ -23,13 +23,21 @@ resource "aws_security_group" "project-iac-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  // To Allow Ping Transport
+  // To Allow Port 8080 Transport
   ingress {
+    from_port = 8080
+    protocol = "tcp"
+    to_port = 8080
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  // To Allow Ping Transport
+/*  ingress {
     from_port = 8
     protocol = "icmp"
     to_port = -1
     cidr_blocks = ["0.0.0.0/0"]
-  }
+  }*/
 
   egress {
     from_port       = 0
