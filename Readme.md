@@ -16,6 +16,8 @@ Then need to apply commands below
 
 ```sh
 terraform init
+```
+```sh
 terraform plan -var-file=credentials.tfvars
 ```
 
